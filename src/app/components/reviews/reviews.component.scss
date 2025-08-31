@@ -1,0 +1,191 @@
+@import "mixins";
+
+.Formulario {
+  background-image: url("../../../assets/fondoFormulario.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  padding: 60px 0;
+
+  .box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+    border-radius: 20px;
+    background-color: #f5f5f5;
+    width: 500px;
+
+    .Title {
+      color: #002649;
+      font-size: 30px;
+      font-weight: 400;
+      text-align: center;
+    }
+  }
+
+  .Notas {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    div {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    label {
+      color: #002649;
+    }
+
+    /* 🔹 Todos los inputs normales */
+    .cuadro {
+      width: 100%;
+      max-width: 250px;
+      border: 2px solid #c4e39e;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 16px;
+      color: #002649;
+      outline: none;
+      box-sizing: border-box;
+
+      &:focus {
+        border-color: #78b82a;
+        box-shadow: 0 0 5px rgba(120, 184, 42, 0.6);
+      }
+    }
+     textarea.cuadro {
+    min-height: 100px; // más alto para escribir
+    resize: vertical;  // el usuario puede agrandarlo hacia abajo si quiere
+    line-height: 1.5;
+  }
+
+
+    /* 🔹 Input de teléfono con intl-tel-input */
+    .PhoneInput {
+      width: 100%;
+      max-width: 250px;
+      align-self: stretch;
+
+      .iti {
+        width: 100%;
+      }
+
+      .iti input {
+        width: 100%;
+        border: 2px solid #c4e39e;
+        border-radius: 10px;
+        padding: 10px 12px 10px 50px; /* espacio para la bandera */
+        font-size: 16px;
+        color: #002649;
+        outline: none;
+        box-sizing: border-box;
+
+        &:focus {
+          border-color: #78b82a;
+          box-shadow: 0 0 5px rgba(120, 184, 42, 0.6);
+        }
+      }
+
+      .iti__flag-container {
+        background: #fff;
+        border-radius: 10px 0 0 10px;
+        border-right: 1px solid #c4e39e;
+      }
+
+      .iti__country-list {
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        font-size: 14px;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+    }
+
+    button {
+      background-color: #c4e39e;
+      color: #488102;
+      font-size: 20px;
+      font-weight: 900;
+      border: 0px;
+      width: 150px;
+      padding: 5px;
+      border-radius: 10px;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  .enviar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    a {
+      color: #002649;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #c4e39e;
+      color: #488102;
+      font-size: 20px;
+      font-weight: 900;
+      border: 0px;
+      width: 150px;
+      padding: 5px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  }
+}
+
+/* ✅ Responsive */
+
+@include responsive(xs) {
+
+  .Formulario {
+    padding: 40px 16px;
+  }
+
+  .Formulario .box {
+    width: 100%;
+    max-width: 100%;
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .Formulario .Notas {
+    max-width: 100%;
+    gap: 12px;
+  }
+
+  .Formulario .Notas .cuadro,
+  .Formulario .Notas .PhoneInput,
+  .Formulario .Notas .PhoneInput .iti,
+  .Formulario .Notas .PhoneInput .iti input,
+  .Formulario .Notas .PhoneInput .iti .iti__tel-input {
+    width: 100% !important;   /* fuerza igualdad en móvil */
+  }
+
+  /* ajusta la tipografía ligeramente */
+  .Formulario .Notas .cuadro,
+  .Formulario .Notas .PhoneInput .iti input {
+    font-size: 15px;
+  }
+}

@@ -1,0 +1,28 @@
+@import 'mixins';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+cursor: default;
+user-select: none;
+input,
+textarea {
+  user-select: text;
+  cursor: text;
+}
+
+
+}
+
+html ,body :root  {
+  font-family: 'Public Sans', sans-serif;
+scroll-behavior: smooth;
+
+}
+body {
+  padding-top: 72px; /* 👈 igual a $nav-height; ajusta si cambias el nav */
+}
+ h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;    }
+/* You can add global styles to this file, and also import other style files */

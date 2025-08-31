@@ -1,0 +1,44 @@
+<nav [class.open]="menuOpen">
+  <div class="nav-left">
+    <!-- Burger -->
+    <div
+      class="Burger"
+      role="button"
+      aria-label="Abrir menú"
+      [attr.aria-expanded]="menuOpen"
+      (click)="toggleMenu()"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- Logo -->
+    <div class="img">
+      <img src="../../../assets/logo_SEELS_blanco.png" alt="SEELS-logo" />
+    </div>
+  </div>
+
+  <!-- Links principales -->
+  <div class="text" [class.active]="menuOpen">
+    <a href="#cobertura" (click)="closeMenu()">COBERTURA</a>
+    <a href="#formulario" (click)="closeMenu()">CLIENTES</a>
+    <a href="#servicios"  (click)="closeMenu()">SERVICIOS</a>
+  </div>
+
+  <!-- CTA -->
+  <div class="service" [class.active]="menuOpen">
+    <a
+      class="boton-cotizar"
+      href="https://wa.me/573150603000?text=Hola%2C%20quiero%20solicitar%20una%20cotizaci%C3%B3n%20para%20un%20env%C3%ADo.%20Por%20favor%20ind%C3%ADquenme%20qu%C3%A9%20informaci%C3%B3n%20necesitan.%20%F0%9F%9A%9A%F0%9F%93%A6"
+      target="_blank"
+      rel="noopener"
+      (click)="closeMenu()"
+    >
+      COTIZA TU ENVÍO
+    </a>
+  </div>
+
+  <!-- Backdrop al abrir en móvil -->
+  <div class="nav-backdrop" (click)="toggleMenu()"></div>
+</nav>

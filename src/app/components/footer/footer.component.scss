@@ -1,0 +1,54 @@
+@import "mixins";
+footer {
+  background-color: #052633;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+  font-size: 10px;
+
+  .Service {
+    display: flex;
+    flex-direction: column;
+    width: 230px;
+    gap: 10px;
+  }
+  .info {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    gap: 10px;
+  }
+  .Contac {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    div {
+      display: flex;
+      gap: 0.5rem;
+    }
+  }
+}
+@include responsive(xs) {
+  footer {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 20px;
+    padding: 30px 20px;
+    font-size: 12px;
+
+    .Service,
+    .info,
+    .Contac {
+      width: 100%;
+    }
+
+    .Contac {
+      div {
+        align-items: center;
+      }
+    }
+  }
+}

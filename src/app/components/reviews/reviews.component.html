@@ -1,0 +1,65 @@
+<section id="formulario" class="Formulario">
+  <div class="box">
+    <p class="Title">¿Tienes cosas para enviar?</p>
+
+    <!-- ngSubmit para capturar el evento -->
+    <form class="Notas" (ngSubmit)="enviarFormulario($event)" #formEnvio="ngForm">
+
+      <input
+        class="cuadro"
+        type="text"
+        id="name"
+        name="UserName"
+        placeholder="Nombre Completo"
+        [(ngModel)]="formData.UserName"
+        required
+         pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+"
+  title="Solo letras"
+  (keypress)="onlyLetters($event)"
+      >
+
+  <input
+    #phoneInput
+    inputmode="numeric" pattern="\d*"
+    class="cuadro"
+    type="tel"
+    id="phone"
+    name="PhoneUser"
+    [(ngModel)]="formData.PhoneUser"
+    placeholder="Número de teléfono"
+    pattern="[0-9]+"
+  title="Solo números"
+  (keypress)="onlyNumbers($event)"/>
+
+
+
+      <input
+        class="cuadro"
+        type="email"
+        id="email"
+        name="EmailUser"
+        placeholder="Email"
+        [(ngModel)]="formData.EmailUser"
+        required
+      >
+
+      <textarea
+        class="cuadro"
+        type="text"
+        id="review"
+        name="ReviewUser"
+        placeholder="Notas"
+        [(ngModel)]="formData.ReviewUser"
+      ></textarea>
+
+      <div class="enviar">
+        <div>
+          <input type="checkbox" id="check" required>
+          <a href="">Acepta Términos y Condiciones</a>
+        </div>
+        <button type="submit" (click)="clickBtn()" [disabled]="formEnvio.invalid || loading">{{ loading ? 'Enviando…' : 'Enviar' }}</button>
+      </div>
+
+    </form>
+  </div>
+</section>
