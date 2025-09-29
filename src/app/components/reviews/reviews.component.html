@@ -1,10 +1,11 @@
-<section id="formulario" class="Formulario">
+<section id="formulario" class="Formulario" aria-labelledby="form-title">
   <div class="box">
-    <p class="Title">¿Tienes cosas para enviar?</p>
+    <p id="form-title" class="Title">¿Tienes cosas para enviar?</p>
 
-    <!-- ngSubmit para capturar el evento -->
-    <form class="Notas" (ngSubmit)="enviarFormulario($event)" #formEnvio="ngForm">
+    <form class="Notas" (ngSubmit)="enviarFormulario(formEnvio)" #formEnvio="ngForm" novalidate>
 
+      <!-- NOMBRE -->
+      <label for="name" class="sr-only">Nombre completo</label>
       <input
         class="cuadro"
         type="text"
@@ -12,27 +13,42 @@
         name="UserName"
         placeholder="Nombre Completo"
         [(ngModel)]="formData.UserName"
+        #UserNameCtrl="ngModel"
         required
-         pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+"
-  title="Solo letras"
-  (keypress)="onlyLetters($event)"
-      >
+        pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+"
+        title="Solo letras"
+        (keypress)="onlyLetters($event)"
+        aria-required="true"
+        aria-label="Nombre completo"
+      />
+      <div class="error" *ngIf="submitted && UserNameCtrl.invalid">
+        <small *ngIf="UserNameCtrl.errors?.['required']">El nombre es obligatorio.</small>
+        <small *ngIf="UserNameCtrl.errors?.['pattern']">Usa solo letras y espacios.</small>
+      </div>
 
-  <input
-    #phoneInput
-    inputmode="numeric" pattern="\d*"
-    class="cuadro"
-    type="tel"
-    id="phone"
-    name="PhoneUser"
-    [(ngModel)]="formData.PhoneUser"
-    placeholder="Número de teléfono"
-    pattern="[0-9]+"
-  title="Solo números"
-  (keypress)="onlyNumbers($event)"/>
+      <!-- TELÉFONO -->
+      <label for="phone" class="sr-only">Teléfono</label>
+      <input
+        #phoneInput
+        class="cuadro"
+        type="tel"
+        id="phone"
+        name="PhoneUser"
+        [(ngModel)]="formData.PhoneUser"
+        #PhoneUserCtrl="ngModel"
+        placeholder="Número de teléfono"
+        inputmode="numeric"
+        pattern="^[0-9]{6,15}$"
+        title="Solo números (6-15 dígitos)"
+        (keypress)="onlyNumbers($event)"
+        aria-label="Número de teléfono"
+      />
+      <div class="error" *ngIf="submitted && PhoneUserCtrl.invalid">
+        <small *ngIf="PhoneUserCtrl.errors?.['pattern']">Teléfono inválido (solo números, 6-15 dígitos).</small>
+      </div>
 
-
-
+      <!-- EMAIL -->
+      <label for="email" class="sr-only">Correo electrónico</label>
       <input
         class="cuadro"
         type="email"
@@ -40,26 +56,68 @@
         name="EmailUser"
         placeholder="Email"
         [(ngModel)]="formData.EmailUser"
+        #EmailUserCtrl="ngModel"
         required
-      >
+        aria-required="true"
+        aria-label="Correo electrónico"
+      />
+      <div class="error" *ngIf="submitted && EmailUserCtrl.invalid">
+        <small *ngIf="EmailUserCtrl.errors?.['required']">El email es obligatorio.</small>
+        <small *ngIf="EmailUserCtrl.errors?.['email']">Formato de email inválido.</small>
+      </div>
 
+      <!-- NOTAS -->
+      <label for="review" class="sr-only">Notas</label>
       <textarea
         class="cuadro"
-        type="text"
         id="review"
         name="ReviewUser"
         placeholder="Notas"
         [(ngModel)]="formData.ReviewUser"
+        #ReviewUserCtrl="ngModel"
+        aria-label="Notas"
       ></textarea>
 
       <div class="enviar">
-        <div>
-          <input type="checkbox" id="check" required>
-          <a href="">Acepta Términos y Condiciones</a>
+        <div class="terms">
+          <input
+            type="checkbox"
+            id="check"
+            name="acceptedTerms"
+            [(ngModel)]="formData.acceptedTerms"
+            #AcceptedTermsCtrl="ngModel"
+            required
+            aria-required="true"
+          />
+          <label for="check">
+            <a href="/terminos" target="_blank" rel="noopener">Acepta Términos y Condiciones</a>
+          </label>
         </div>
-        <button type="submit" (click)="clickBtn()" [disabled]="formEnvio.invalid || loading">{{ loading ? 'Enviando…' : 'Enviar' }}</button>
+        <div class="error" *ngIf="submitted && AcceptedTermsCtrl.invalid">
+          <small *ngIf="AcceptedTermsCtrl.errors?.['required']">Debes aceptar los términos.</small>
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="formEnvio.invalid || loading || !currentUser || authChecking"
+          [attr.aria-disabled]="(formEnvio.invalid || loading || !currentUser || authChecking) ? 'true' : 'false'"
+          aria-live="polite"
+        >
+          {{ loading ? 'Enviando…' : (authChecking ? 'Conectando…' : (currentUser ? 'Enviar' : 'Conectando…')) }}
+        </button>
       </div>
 
     </form>
+
+    <!-- BOTÓN DE DEPURACIÓN (temporal) -->
+    <!-- <div style="margin-top:12px;">
+      <button
+        type="button"
+        (click)="testWrite()"
+        style="background:#ffb6c1;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;"
+      >
+        DEBUG: prueba mínima Firestore
+      </button>
+    </div> -->
   </div>
 </section>
