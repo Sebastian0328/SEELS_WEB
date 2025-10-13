@@ -27,20 +27,29 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets", {
-    "glob": "utils.js",
-    "input": "node_modules/intl-tel-input/build/js",
-    "output": "assets/intl-tel-input"
-  }
+              "src/assets",
+              {
+                "glob": "utils.js",
+                "input": "node_modules/intl-tel-input/build/js",
+                "output": "assets/intl-tel-input"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/intl-tel-input/build/img",
+                "output": "assets/intl-tel-input/img"
+              }
             ],
             "styles": [
               "node_modules/intl-tel-input/build/css/intlTelInput.css",
               "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
-  "includePaths": ["src/styles"]
-},
-            "scripts": []
+              "includePaths": ["src/styles"]
+            },
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "intl-tel-input"
+            ]
           },
           "configurations": {
             "production": {
@@ -56,7 +65,13 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
             },
             "development": {
               "optimization": false,
@@ -68,6 +83,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "host": "127.0.0.1",
+            "port": 4200
+          },
           "configurations": {
             "production": {
               "buildTarget": "SeelsWeb:build:production"

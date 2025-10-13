@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
-import { ServicesComponent } from './components/services/services.component';
+import { ServicesComponent } from './components/servicio/services.component';
 import { CoverageComponent } from './components/coverage/coverage.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { FooterComponent } from './components/footer/footer.component';

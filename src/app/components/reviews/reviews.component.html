@@ -4,6 +4,17 @@
 
     <form class="Notas" (ngSubmit)="enviarFormulario(formEnvio)" #formEnvio="ngForm" novalidate>
 
+      <!-- HONEYPOT anti-spam (oculto para humanos, visible para bots) -->
+      <input
+        type="text"
+        name="website"
+        [(ngModel)]="honeypot"
+        autocomplete="off"
+        tabindex="-1"
+        aria-hidden="true"
+        style="position:absolute;left:-10000px;opacity:0"
+      />
+
       <!-- NOMBRE -->
       <label for="name" class="sr-only">Nombre completo</label>
       <input
@@ -15,6 +26,7 @@
         [(ngModel)]="formData.UserName"
         #UserNameCtrl="ngModel"
         required
+        minlength="2"
         pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+"
         title="Solo letras"
         (keypress)="onlyLetters($event)"
@@ -23,10 +35,11 @@
       />
       <div class="error" *ngIf="submitted && UserNameCtrl.invalid">
         <small *ngIf="UserNameCtrl.errors?.['required']">El nombre es obligatorio.</small>
+        <small *ngIf="UserNameCtrl.errors?.['minlength']">Debe tener al menos 2 caracteres.</small>
         <small *ngIf="UserNameCtrl.errors?.['pattern']">Usa solo letras y espacios.</small>
       </div>
 
-      <!-- TELÉFONO -->
+      <!-- TELÉFONO (opcional, formateado a E.164 por intl-tel-input en TS) -->
       <label for="phone" class="sr-only">Teléfono</label>
       <input
         #phoneInput
@@ -38,13 +51,12 @@
         #PhoneUserCtrl="ngModel"
         placeholder="Número de teléfono"
         inputmode="numeric"
-        pattern="^[0-9]{6,15}$"
-        title="Solo números (6-15 dígitos)"
+        title="Solo números (se convertirá a formato internacional)"
         (keypress)="onlyNumbers($event)"
         aria-label="Número de teléfono"
       />
       <div class="error" *ngIf="submitted && PhoneUserCtrl.invalid">
-        <small *ngIf="PhoneUserCtrl.errors?.['pattern']">Teléfono inválido (solo números, 6-15 dígitos).</small>
+        <small>Teléfono inválido.</small>
       </div>
 
       <!-- EMAIL -->
@@ -58,6 +70,7 @@
         [(ngModel)]="formData.EmailUser"
         #EmailUserCtrl="ngModel"
         required
+        email
         aria-required="true"
         aria-label="Correo electrónico"
       />
@@ -76,9 +89,11 @@
         [(ngModel)]="formData.ReviewUser"
         #ReviewUserCtrl="ngModel"
         aria-label="Notas"
+        rows="4"
       ></textarea>
 
       <div class="enviar">
+        <!-- TÉRMINOS -->
         <div class="terms">
           <input
             type="checkbox"
@@ -90,34 +105,34 @@
             aria-required="true"
           />
           <label for="check">
-            <a href="/terminos" target="_blank" rel="noopener">Acepta Términos y Condiciones</a>
+            Acepto los
+            <a href="/terminos" target="_blank" rel="noopener">términos y condiciones</a>.
           </label>
         </div>
         <div class="error" *ngIf="submitted && AcceptedTermsCtrl.invalid">
           <small *ngIf="AcceptedTermsCtrl.errors?.['required']">Debes aceptar los términos.</small>
         </div>
 
+        <!-- BOTÓN -->
         <button
           type="submit"
-          [disabled]="formEnvio.invalid || loading || !currentUser || authChecking"
-          [attr.aria-disabled]="(formEnvio.invalid || loading || !currentUser || authChecking) ? 'true' : 'false'"
+          [disabled]="formEnvio.invalid || loading"
+          [attr.aria-disabled]="(formEnvio.invalid || loading) ? 'true' : 'false'"
           aria-live="polite"
         >
-          {{ loading ? 'Enviando…' : (authChecking ? 'Conectando…' : (currentUser ? 'Enviar' : 'Conectando…')) }}
+          {{ loading ? 'Enviando…' : 'Enviar' }}
         </button>
       </div>
 
     </form>
 
-    <!-- BOTÓN DE DEPURACIÓN (temporal) -->
-    <!-- <div style="margin-top:12px;">
-      <button
-        type="button"
-        (click)="testWrite()"
-        style="background:#ffb6c1;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;"
-      >
-        DEBUG: prueba mínima Firestore
+    <!-- Botón de depuración (opcional) -->
+    <!--
+    <div style="margin-top:12px;">
+      <button type="button" (click)="testWrite()" class="btn btn-ghost" [disabled]="loadingTest">
+        {{ loadingTest ? 'Probando…' : 'Probar escritura (DEBUG)' }}
       </button>
-    </div> -->
+    </div>
+    -->
   </div>
 </section>
