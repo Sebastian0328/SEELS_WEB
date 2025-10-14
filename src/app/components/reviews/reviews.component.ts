@@ -40,7 +40,7 @@ export class ReviewsComponent implements AfterViewInit, OnDestroy {
 
     try {
       this.iti = intlTelInput(input, {
-        initialCountry: 'es',
+        initialCountry: 'co',
         preferredCountries: ['es', 'co', 'us', 'mx'],
         separateDialCode: true,
         utilsScript: '/assets/intl-tel-input/utils.js'
