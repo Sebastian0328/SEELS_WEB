@@ -40,28 +40,35 @@ nav {
     position: relative;
     min-height: $nav-height; /* asegura alto para centrar logo en móvil */
 
-    .img img {
-      max-height: 70px; display: block;
-    }
+    .img img { max-height: 70px; display: block; }
 
+    /* === Botón Burger === */
     .Burger {
-      display: none; /* desktop */
+      display: none; /* se muestra en xs/sm/md */
       flex-direction: column;
       justify-content: center;
       gap: 6px;
       cursor: pointer;
       width: 36px; height: 36px; /* área cómoda de toque */
       align-items: center;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 10px;
+      background: transparent;
+      transition: background .2s ease, border-color .2s ease;
+
+      &:hover { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.25); }
+      &:focus-visible { outline: 2px solid #7cc236; outline-offset: 2px; }
 
       span {
         width: 26px; height: 3px;
         background-color: aliceblue;
         border-radius: 2px;
-        transition: transform .3s ease, opacity .3s ease, width .3s ease;
+        transition: transform .3s ease, opacity .3s ease, width .3s ease, translate .3s ease;
       }
     }
   }
 
+  /* Filas auxiliares (si las usas) */
   .text, .service {
     display: flex;
     justify-content: center;
@@ -89,9 +96,7 @@ nav {
   }
 
   /* Backdrop para móvil (oculto por defecto) */
-  .nav-backdrop {
-    display: none;
-  }
+  .nav-backdrop { display: none; }
 }
 
 /* ====== MÓVIL (xs) ====== */
@@ -116,57 +121,73 @@ nav {
       }
 
       .Burger { display: flex; }
-
-      /* Animación del burger -> X cuando .open en <nav> */
-
     }
 
-    /* Menús colapsables con animación */
-    .text, .service {
+    /* ===== Menú principal (UL) como drawer vertical ===== */
+    .nav-information {
+      list-style: none;
+      margin: 0;
+      padding: 0 20px;
       width: 100%;
 
+      /* colapsado por defecto */
       overflow: hidden;
       max-height: 0;
       opacity: 0;
       transform: translateY(-8px);
       transition: max-height .35s ease, opacity .25s ease, transform .25s ease;
-      padding: 0 20px; /* se expone cuando abre */
 
-      a {
+      li a {
+        display: block;
         width: 100%;
         text-align: left;
         padding: 10px 0;
-        display: block;
+        border-radius: 8px;
+
+        &:hover { background: rgba(255,255,255,.06); }
       }
     }
 
-    /* Al abrir el menú (agrega .open al <nav> desde TS) */
+    /* (Si usas .text y .service, se comportan igual que el UL colapsable) */
+    .text, .service {
+      width: 100%;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: max-height .35s ease, opacity .25s ease, transform .25s ease;
+      padding: 0 20px;
+
+      a { width: 100%; text-align: left; padding: 10px 0; display: block; }
+    }
+
+    /* Al abrir el menú (agrega .open al <nav> desde TS/JS) */
     &.open {
-      .text {
+      .nav-information {
         max-height: 500px;
         opacity: 1;
         transform: translateY(0);
-        padding: 10px 20px;
+        padding: 10px 20px 16px;
         gap: 6px;
+      }
 
+      .text {
+        max-height: 500px; opacity: 1; transform: translateY(0);
+        padding: 10px 20px; gap: 6px;
       }
 
       .service {
-        max-height: 200px;
-        opacity: 1;
-        transform: translateY(0);
+        max-height: 200px; opacity: 1; transform: translateY(0);
         padding: 10px 20px 20px;
 
-        .boton-cotizar {
-          text-align: center;
-          width: 50%; }
+        .boton-cotizar { text-align: center; width: 50%; }
       }
 
-      /* Burger animado */
+      /* Burger animado -> X */
       .Burger {
-        span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+        span:nth-child(1) { transform: rotate(45deg); translate: 0 9px; }
         span:nth-child(2) { opacity: 0; }
-        span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+        span:nth-child(3) { transform: rotate(-45deg); translate: 0 -9px; }
       }
 
       /* Backdrop visible al abrir */
@@ -193,19 +214,13 @@ nav {
       width: 100%;
       justify-content: space-between;
 
-      .img {
-        position: absolute;
-        left: 50%; top: 50%;
-        transform: translate(-50%, -50%);
-      }
-
+      .img { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
       .Burger { display: flex; }
     }
 
-    .text, .service {
-      /* mismo colapsable que móvil */
+    /* UL colapsable en tablet también */
+    .nav-information {
       width: 100%;
-
       overflow: hidden;
       max-height: 0;
       opacity: 0;
@@ -213,33 +228,38 @@ nav {
       transition: max-height .35s ease, opacity .25s ease, transform .25s ease;
       padding: 0 20px;
 
-      a { width: 100%; text-align: left; padding: 10px 0; display: block; }
+      li a { display: block; width: 100%; text-align: left; padding: 10px 0; }
+    }
+
+    .text, .service {
+      width: 100%;
+      overflow: hidden; max-height: 0; opacity: 0; transform: translateY(-8px);
+      transition: max-height .35s ease, opacity .25s ease, transform .25s ease;
+      padding: 0 20px;
+
+      a { display: block; width: 100%; text-align: left; padding: 10px 0; }
     }
 
     &.open {
-      .text {
-        max-height: 500px; opacity: 1; transform: translateY(0);
-        padding: 10px 20px; gap: 6px;
+      .nav-information {
+        max-height: 600px; opacity: 1; transform: translateY(0);
+        padding: 10px 20px 16px; gap: 6px;
       }
-      .service {
-        max-height: 220px; opacity: 1; transform: translateY(0);
-        padding: 10px 20px 20px;
+
+      .text  { max-height: 500px; opacity: 1; transform: translateY(0); padding: 10px 20px; gap: 6px; }
+      .service { max-height: 220px; opacity: 1; transform: translateY(0); padding: 10px 20px 20px;
         .boton-cotizar { width: 40%; text-align: center; }
       }
 
       .Burger {
-        span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+        span:nth-child(1) { transform: rotate(45deg); translate: 0 9px; }
         span:nth-child(2) { opacity: 0; }
-        span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+        span:nth-child(3) { transform: rotate(-45deg); translate: 0 -9px; }
       }
 
       .nav-backdrop {
-        display: block;
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,.35);
-        z-index: -1;
-        backdrop-filter: blur(1px);
+        display: block; position: fixed; inset: 0;
+        background: rgba(0,0,0,.35); z-index: -1; backdrop-filter: blur(1px);
       }
     }
   }
@@ -256,18 +276,12 @@ nav {
       width: 100%;
       justify-content: space-between;
 
-      .img {
-        position: absolute;
-        left: 50%; top: 50%;
-        transform: translate(-50%, -50%);
-      }
-
-      .Burger { display: flex; }
+      .img { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+      .Burger { display: flex; } /* aún visible en tu rango md */
     }
 
-    .text, .service {
+    .nav-information {
       width: 100%;
-
       overflow: hidden;
       max-height: 0;
       opacity: 0;
@@ -275,35 +289,76 @@ nav {
       transition: max-height .35s ease, opacity .25s ease, transform .25s ease;
       padding: 0 20px;
 
+      li a { display: block; width: 100%; text-align: left; padding: 10px 0; }
+    }
+
+    .text, .service {
+      width: 100%;
+      overflow: hidden; max-height: 0; opacity: 0; transform: translateY(-8px);
+      transition: max-height .35s ease, opacity .25s ease, transform .25s ease;
+      padding: 0 20px;
+
       a { width: 100%; text-align: left; padding: 10px 0; display: block; }
     }
 
     &.open {
-      .text {
-        max-height: 500px; opacity: 1; transform: translateY(0);
-        padding: 10px 20px; gap: 6px;
-      }
-      .service {
-        max-height: 220px; opacity: 1; transform: translateY(0);
-        padding: 10px 20px 20px;
-        .boton-cotizar { width: 40%;
-        text-align: center; }
-      }
+      .nav-information { max-height: 600px; opacity: 1; transform: translateY(0); padding: 10px 20px 16px; gap: 6px; }
+      .text  { max-height: 500px; opacity: 1; transform: translateY(0); padding: 10px 20px; gap: 6px; }
+      .service { max-height: 220px; opacity: 1; transform: translateY(0); padding: 10px 20px 20px; .boton-cotizar { width: 40%; text-align: center; } }
 
       .Burger {
-        span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+        span:nth-child(1) { transform: rotate(45deg); translate: 0 9px; }
         span:nth-child(2) { opacity: 0; }
-        span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+        span:nth-child(3) { transform: rotate(-45deg); translate: 0 -9px; }
       }
 
       .nav-backdrop {
-        display: block;
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,.35);
-        z-index: -1;
-        backdrop-filter: blur(1px);
+        display: block; position: fixed; inset: 0;
+        background: rgba(0,0,0,.35); z-index: -1; backdrop-filter: blur(1px);
       }
     }
+  }
+}
+
+/* ====== DESKTOP (lg en adelante) — barra horizontal ====== */
+@include responsive(lg) {
+  nav {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 12px 32px;
+
+    .nav-left {
+      gap: 20px;
+
+      .img { position: static; transform: none; pointer-events: auto; }
+      .Burger { display: none; } /* oculto en desktop */
+    }
+
+    /* Menú UL siempre visible y en línea */
+    .nav-information {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex; align-items: center; gap: clamp(12px, 2.2vw, 24px);
+
+      /* reseteo de colapsable */
+      max-height: none; opacity: 1; transform: none;
+      overflow: visible;
+
+      li a {
+        padding: 8px 10px; border-radius: 6px;
+        &:hover { background: rgba(255,255,255,.08); }
+      }
+    }
+
+    /* Si usas .text/.service, también en línea */
+    .text, .service {
+      max-height: none; opacity: 1; transform: none; padding: 0;
+      display: flex; align-items: center; gap: clamp(12px, 2.2vw, 24px);
+
+      a { padding: 8px 6px; border-radius: 6px; &:hover { background: rgba(255,255,255,.08); } }
+    }
+
+    .nav-backdrop { display: none !important; }
   }
 }
