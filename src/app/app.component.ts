@@ -7,6 +7,8 @@ import { ServicesComponent } from './components/servicio/services.component';
 import { CoverageComponent } from './components/coverage/coverage.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { RouterOutlet } from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
@@ -17,8 +19,9 @@ import { FooterComponent } from './components/footer/footer.component';
     ServicesComponent,
     CoverageComponent,
     ReviewsComponent,
-    FooterComponent
-  ],
+    FooterComponent,
+    RouterOutlet
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

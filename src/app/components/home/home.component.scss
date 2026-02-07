@@ -1,43 +1,46 @@
 @import "mixins";
-section{
+
+/* 1) HOME: antes era section { ... } y afectaba todo.
+   Ahora queda SOLO para el hero .home (mismo look). */
+.home {
   background-image: url(../../../assets/fondoHome.png);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  // height: 100vh;
   padding: 20px 80px;
   display: flex;
   justify-content: center;
   gap: 10px;
   align-items: center;
-  .Title{
+
+  .Title {
     width: 100%;
-    h1{
-      font-size: 50px;
-    }
-    h2{
-    font-weight: 300;
-    font-size: 50px;
+    h1 { font-size: 50px; }
+    h2 { font-weight: 300; font-size: 50px; }
   }
-  }
-  .Text{
-    color:aliceblue;
+
+  .Text {
+    color: aliceblue;
     font-size: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 10px;
   }
-  .img{position: relative;
-    top: 23px;}
-  .info{
 
+  .img {
+    position: relative;
+    top: 23px;
+  }
+
+  .info {
     font-size: 15px;
     display: flex;
     flex-direction: column;
     width: 320px;
     text-align: start;
   }
+
   .boton-cotizar {
     background: linear-gradient(90deg, #7cc236, transparent);
     border-radius: 8px;
@@ -48,6 +51,7 @@ section{
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     display: inline-block;
+
     &:hover {
       transform: scale(1.05);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -55,17 +59,88 @@ section{
     }
   }
 }
-// .FondoVerde {
-//   position: absolute;
-//   bottom: 0;
-//   left: 0;
-//   width: 100%;
-//   height: auto;
-//   z-index: 0;
-//   top: 80vh;
-// }
+
+/* 2) SEO KEYWORDS: estilos propios, sin tocar tu diseño principal */
+.seo-keywords {
+  background: white;
+  padding: 60px 80px;
+  display: block;
+
+  .seo-content {
+    max-width: 980px;
+    margin: 0 auto;
+    color: #323b2d;
+  }
+
+  h2 {
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0 0 14px 0;
+  }
+
+  h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 18px 0 10px 0;
+  }
+
+  p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0 0 12px 0;
+  }
+
+  .seo-blocks {
+    display: flex;
+    gap: 14px;
+    margin: 14px 0 8px 0;
+    flex-wrap: wrap;
+  }
+
+  .seo-block {
+    flex: 1 1 240px;
+    background: #f3f7f2;
+    border: 1px solid rgba(50, 59, 45, 0.12);
+    border-radius: 10px;
+    padding: 14px;
+  }
+
+  /* Reutiliza tu botón exactamente igual aquí también */
+  .boton-cotizar {
+    background: linear-gradient(90deg, #7cc236, transparent);
+    border-radius: 8px;
+    border: 0px;
+    padding: 12px 24px;
+    font-weight: bold;
+    color: aliceblue;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: inline-block;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      background-color: #7cc236;
+    }
+  }
+
+  .seo-faq details {
+    background: #ffffff;
+    border: 1px solid rgba(50, 59, 45, 0.12);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-top: 10px;
+  }
+
+  .seo-faq summary {
+    cursor: pointer;
+    font-weight: 600;
+  }
+}
+
+/* RESPONSIVE: igual que tu idea, pero solo para .home */
 @include responsive(xs) {
-  section {
+  .home {
     flex-direction: column;
     align-items: center;
     padding: 30px 20px;
@@ -81,9 +156,7 @@ section{
     }
 
     .Title {
-      h1, h2 {
-        margin: 0;
-      }
+      h1, h2 { margin: 0; }
     }
 
     .info {
@@ -93,18 +166,20 @@ section{
       font-size: 16px;
     }
 
-    .boton-cotizar {
-      margin-top: 10px;
-    }
+    .boton-cotizar { margin-top: 10px; }
+    .img { display: none; }
+  }
 
-    .img {
-      display: none;
-    }
+  .seo-keywords {
+    padding: 40px 20px;
+
+    h2 { font-size: 26px; }
+    .seo-blocks { gap: 10px; }
   }
 }
 
 @include responsive(sm) {
-  section {
+  .home {
     flex-direction: column;
     align-items: center;
     padding: 30px 20px;
@@ -120,9 +195,7 @@ section{
     }
 
     .Title {
-      h1, h2 {
-        margin: 0;
-      }
+      h1, h2 { margin: 0; }
     }
 
     .info {
@@ -132,17 +205,15 @@ section{
       font-size: 16px;
     }
 
-    .boton-cotizar {
-      margin-top: 10px;
-    }
-
-    .img {
-      display: none;
-    }
+    .boton-cotizar { margin-top: 10px; }
+    .img { display: none; }
   }
+
+  .seo-keywords { padding: 50px 30px; }
 }
- @include responsive(md) {
-  section {
+
+@include responsive(md) {
+  .home {
     flex-direction: column;
     align-items: center;
     padding: 30px 20px;
@@ -158,9 +229,7 @@ section{
     }
 
     .Title {
-      h1, h2 {
-        margin: 0;
-      }
+      h1, h2 { margin: 0; }
     }
 
     .info {
@@ -170,11 +239,9 @@ section{
       font-size: 16px;
     }
 
-    .boton-cotizar {
-      margin-top: 10px;
-    }
+    .boton-cotizar { margin-top: 10px; }
+    .img { display: none; }
+  }
 
-    .img {
-      display: none;
-    }
-  }}
+  .seo-keywords { padding: 60px 40px; }
+}

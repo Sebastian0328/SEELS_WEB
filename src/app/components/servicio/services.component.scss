@@ -1,5 +1,8 @@
 @import "mixins";
 
+/* =======================
+   SERVICIOS (diseño actual)
+   ======================= */
 .services {
   display: flex;
   flex-direction: column;
@@ -18,13 +21,8 @@
       font-size: 50px;
     }
 
-    h2 {
-      font-weight: 500;
-    }
-
-    h3 {
-      font-weight: 200;
-    }
+    h2 { font-weight: 500; }
+    h3 { font-weight: 200; }
   }
 
   .pp {
@@ -35,89 +33,218 @@
     padding: 0 20px;
     box-sizing: border-box;
   }
-}
 
-.imagenes {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 20px;
+  /* antes estaba suelto .imagenes */
+  .imagenes {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
 
+  /* antes estaba suelto .card */
+  .card {
+    width: 250px;
+    position: relative;
+    transition: transform 0.3s ease;
+    will-change: transform;
 
-}
+    &:hover {
+      transform: scale(1.04);
 
-.card {
-  width: 250px;
-  position: relative;
+      .text {
+        h3 { color: #7cc236; }
 
-  transition: transform 0.3s ease;
-  will-change: transform;
-   &:hover {
-    transform: scale(1.04);
+        button {
+          background-color: #7cc236;
+          color: white;
+          transform: scale(1.05);
+        }
+      }
+    }
+
+    .imgs {
+      position: absolute;
+      z-index: 0;
+      width: 200px;
+      height: 200px;
+    }
+
     .text {
+      background-color: white;
+      padding: 15px;
+      width: 200px;
+      height: 250px;
+      justify-content: space-around;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 40px;
+      border-radius: 10px;
+      position: relative;
+
       h3 {
-        color: #7cc236;
+        color: #002649;
+        font-weight: 900;
+      }
+
+      h4 {
+        color: #78b82a;
+        font-weight: 200;
+      }
+
+      p {
+        color: #002649;
+        font-size: 10px;
+        font-weight: 400;
       }
 
       button {
-        background-color: #7cc236;
-        color: white;
-        transform: scale(1.05);
+        background-color: #c4e39e;
+        color: #488102;
+        font-size: 20px;
+        font-weight: 900;
+        border: 0px;
+        width: 150px;
+        padding: 5px;
+        border-radius: 10px;
+        cursor: pointer;
       }
-    }}
-
-  .imgs {
-    position: absolute;
-    z-index: 0;
-    width: 200px;
-    height: 200px;
+    }
   }
+}
 
-  .text {
-    background-color: white;
-    padding: 15px;
-    width: 200px;
-    height: 250px;
-    justify-content: space-around;
+/* =======================
+   SEO-LOGISTICA (nuevo bloque, separado)
+   Mantiene coherencia visual, pero no pisa servicios.
+   ======================= */
+.seo-logistica {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 0;
+  background-color: white;
+  gap: 30px;
+
+  .titulo {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 40px;
-    border-radius: 10px;
-    position: relative;
+    gap: 20px;
 
-    h3 {
-      color: #002649;
-      font-weight: 900;
+    h2, h3 {
+      color: #323b2d;
+      font-size: 40px;
     }
 
-    h4 {
-      color: #78b82a;
-      font-weight: 200;
+    h2 { font-weight: 600; }
+    h3 { font-weight: 300; }
+  }
+
+  .pp {
+    color: #00383c;
+    width: 100%;
+    max-width: 720px;
+    text-align: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  .imagenes {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  .card {
+    width: 280px;
+
+    .text {
+      background-color: #f3f7f2;
+      border: 1px solid rgba(50, 59, 45, 0.12);
+      padding: 16px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      h4 {
+        color: #78b82a;
+        font-weight: 400;
+        margin: 0;
+      }
+
+      h3 {
+        color: #002649;
+        font-weight: 800;
+        margin: 0;
+      }
+
+      p {
+        color: #002649;
+        font-size: 13px;
+        line-height: 1.6;
+        margin: 0;
+      }
+
+      a {
+        align-self: center;
+      }
+
+      /* Reutiliza tu botón home (si quieres consistencia) */
+      .boton-cotizar {
+        background: linear-gradient(90deg, #7cc236, transparent);
+        border-radius: 8px;
+        border: 0px;
+        padding: 12px 24px;
+        font-weight: bold;
+        color: aliceblue;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        display: inline-block;
+
+        &:hover {
+          transform: scale(1.05);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          background-color: #7cc236;
+        }
+      }
+    }
+  }
+
+  .faq-seo {
+    width: 100%;
+    max-width: 820px;
+    padding: 0 20px;
+    box-sizing: border-box;
+
+    details {
+      background: #ffffff;
+      border: 1px solid rgba(50, 59, 45, 0.12);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-top: 10px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: #323b2d;
     }
 
     p {
-      color: #002649;
-      font-size: 10px;
-      font-weight: 400;
-    }
-
-    button {
-      background-color: #c4e39e;
-      color: #488102;
-      font-size: 20px;
-      font-weight: 900;
-      border: 0px;
-      width: 150px;
-      padding: 5px;
-      border-radius: 10px;
-      cursor: pointer;
+      margin-top: 8px;
+      color: #00383c;
+      font-size: 14px;
+      line-height: 1.6;
     }
   }
-
-
 }
 
+/* =======================
+   RESPONSIVE
+   ======================= */
 @include responsive(xs) {
   .services {
     padding: 30px 20px;
@@ -127,45 +254,59 @@
       align-items: center;
       text-align: center;
 
-      h2, h3 {
-        font-size: 30px;
-      }
+      h2, h3 { font-size: 30px; }
     }
 
     .pp {
-      width: 100%;
       max-width: 100%;
       padding: 0 20px;
       text-align: center;
       font-size: 14px;
     }
-  }
 
-  .imagenes {
-    flex-direction: column;
-    align-items: center;
-  }
+    .imagenes {
+      flex-direction: column;
+      align-items: center;
+    }
 
-  .card {
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-
-    .text {
+    .card {
       width: 100%;
-      height: auto;
-      padding: 20px;
+      max-width: 300px;
+      margin: 0 auto;
+
+      .text {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        align-items: center;
+        text-align: center;
+
+        p { font-size: 12px; }
+        button { font-size: 16px; width: 100%; }
+      }
+    }
+  }
+
+  .seo-logistica {
+    padding: 40px 0;
+
+    .titulo {
+      flex-direction: column;
       align-items: center;
       text-align: center;
+      gap: 6px;
 
-      p {
-        font-size: 12px;
-      }
+      h2, h3 { font-size: 28px; }
+    }
 
-      button {
-        font-size: 16px;
-        width: 100%;
-      }
+    .pp {
+      max-width: 100%;
+      font-size: 14px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 320px;
     }
   }
 }

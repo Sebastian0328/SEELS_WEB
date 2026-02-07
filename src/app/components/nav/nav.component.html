@@ -15,15 +15,17 @@
 
     <!-- Logo -->
     <div class="img">
+      <a routerLink="/" routerLinkActive="active">
       <img src="../../../assets/logo_SEELS_blanco.png" alt="SEELS-logo" />
+      </a>
     </div>
   </div>
 
   <!-- Links principales -->
   <div class="text" [class.active]="menuOpen">
-    <a href="#cobertura" (click)="closeMenu()">COBERTURA</a>
-    <a href="#formulario" (click)="closeMenu()">CLIENTES</a>
-    <a href="#servicios"  (click)="closeMenu()">SERVICIOS</a>
+    <a routerLink="/Cobertura" routerLinkActive="active">COBERTURA</a>
+    <a routerLink="/Clientes" routerLinkActive="active">CLIENTES</a>
+    <a routerLink="/Servicios" routerLinkActive="active">SERVICIOS</a>
   </div>
 
   <!-- CTA -->

@@ -1,148 +1,215 @@
 @import "mixins";
 
-.Coverage{
+/* =========================
+   COBERTURA (tal cual)
+   ========================= */
+.Coverage {
   background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-.title{
-  display: flex;
-  gap: 10px;
- h1{color:#323b2d;
-  font-size: 40px;
-  font-weight: 600;}
-  h2{
-    color:#323b2d;
-  font-size: 40px;
-  font-weight: 300;
+  padding: 70px;
+
+  .title {
+    display: flex;
+    gap: 10px;
+
+    h2 {
+      color: #323b2d;
+      font-size: 40px;
+      font-weight: 600;
+    }
+
+    h3 {
+      color: #323b2d;
+      font-size: 40px;
+      font-weight: 300;
+    }
   }
 
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .text {
+    width: 400px;
+    color: #323b2d;
+    font-size: 15px;
+  }
+
+  .Box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cajas {
+    background-color: #93db4e;
+    width: 300px;
+    padding: 10px;
+    color: #00383c;
+    text-align: center;
+    font-size: 10px;
+
+    &:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
+  }
+
+  .cajas2 {
+    background-color: #bade88;
+    width: 300px;
+    padding: 10px;
+    color: #00383c;
+    text-align: center;
+    font-size: 10px;
+
+    &:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
+  }
 }
-.info{
+
+/* =========================
+   BLOQUE EXTRA (ABAJO)
+   (ahora sí aplica porque está FUERA de .Coverage)
+   ========================= */
+.extra-coverage {
+  background: #f3f7f2;
+  border-top: 6px solid #93db4e;
+  padding: 40px 70px 60px;
+
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  align-items: center;
+  gap: 14px;
 }
-.text{
 
-  width: 400px;
+.extra-coverage h3 {
+  color: #323b2d;
+  font-size: 26px;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+  width: 100%;
+  max-width: 900px;
+}
+
+.extra-coverage .text {
+  width: 100%;
+  max-width: 900px;
   color: #323b2d;
   font-size: 15px;
-}
-.Box{
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-}
-.cajas{
-  background-color: #93db4e;
-  width:300px;
-  padding: 10px;
-  color: #00383c;
-  text-align: center;
-  font-size: 10px;
-  &:hover{
-    transform: scale(1.05);
-    transition: transform 0.3s ease;
-  }
-}
-.cajas2{
-  background-color: #bade88;
-  width:300px;
-  padding: 10px;
-  color: #00383c;
-  text-align: center;
-  font-size: 10px;
-  &:hover{
-    transform: scale(1.05);
-    transition: transform 0.3s ease;
-  }
-}
+  line-height: 1.7;
+  margin: 0 0 12px 0;
 }
 
+.extra-coverage .Box {
+  margin-top: 6px;
+  width: 100%;
+  max-width: 900px;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.extra-coverage .cajas,
+.extra-coverage .cajas2 {
+  width: auto;
+  border-radius: 14px;
+  padding: 14px;
+  text-align: left;
+  font-size: 12px;
+  box-sizing: border-box;
+
+  &:hover {
+    transform: translateY(-2px);
+    transition: transform 0.25s ease;
+  }
+}
+
+.extra-coverage .cajas { background-color: #93db4e; }
+.extra-coverage .cajas2 { background-color: #bade88; }
+
+.extra-coverage .cajas p,
+.extra-coverage .cajas2 p {
+  margin: 0;
+}
+
+.extra-coverage .cajas p + p,
+.extra-coverage .cajas2 p + p {
+  margin-top: 6px;
+}
+
+.extra-coverage .cta-coverage {
+  margin-top: 18px;
+}
+
+.extra-coverage .boton-cotizar {
+  background: linear-gradient(90deg, #7cc236, transparent);
+  border-radius: 10px;
+  border: 0;
+  padding: 12px 24px;
+  font-weight: bold;
+  color: aliceblue;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: scale(1.04);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+    background-color: #7cc236;
+  }
+}
+
+/* =========================
+   RESPONSIVE SOLO DEL BLOQUE EXTRA
+   ========================= */
 @include responsive(xs) {
-  .Coverage{
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 10px;
-    .title{
-      flex-direction: column;
-      align-items: center;
-      h1, h2 {
-        font-size: 30px;
-      }
-    }
-    .text {
-      width: 100%;
-      text-align: center;
-      font-size: 14px;
-    }
-    .Box {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .cajas, .cajas2 {
-      width: 90%;
-    }
+  .extra-coverage {
+    padding: 30px 12px 40px;
+  }
+
+  .extra-coverage .Box {
+    grid-template-columns: 1fr;
+  }
+
+  .extra-coverage h3 {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .extra-coverage .text {
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .extra-coverage .cajas,
+  .extra-coverage .cajas2 {
+    text-align: center;
   }
 }
+
 @include responsive(sm) {
-  .Coverage{
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 10px;
-    .title{
-      flex-direction: column;
-      align-items: center;
-      h1, h2 {
-        font-size: 30px;
-      }
-    }
-    .text {
-      width: 100%;
-      text-align: center;
-      font-size: 14px;
-    }
-    .Box {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .cajas, .cajas2 {
-      width: 90%;
-    }
+  .extra-coverage {
+    padding: 35px 20px 50px;
+  }
+
+  .extra-coverage .Box {
+    grid-template-columns: 1fr;
+  }
 }
+
 @include responsive(md) {
-  .Coverage{
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 10px;
-    .title{
-      flex-direction: column;
-      align-items: center;
-      h1, h2 {
-        font-size: 30px;
-      }
-    }
-    .text {
-      width: 100%;
-      text-align: center;
-      font-size: 14px;
-    }
-    .Box {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .cajas, .cajas2 {
-      width: 90%;
-    }
-}
+  .extra-coverage {
+    padding: 40px 35px 60px;
+  }
+
+  .extra-coverage .Box {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
   }
 }
